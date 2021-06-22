@@ -1,0 +1,32 @@
+<%- include('bootheader') -%>
+
+<%- include('menubar') -%>
+
+<div class="jumbotron">
+    <h1>Cocktail Finder</h1>
+</div>
+
+<form method="post" action="/getCocktail">
+    what do you want to drink? (one word)
+    <input type="text" name="cocktail"><br>
+    <input type="submit">
+</form>
+
+<a href="https://www.thecocktaildb.com/api.php">The information below come from this website</a>
+<% results.drinks.map((cocktail) => {%>
+<div style="border-top:thick solid blue; margin:20; padding:10">
+    <h1 class="bg-warning"> <%= cocktail.strDrink %> </h1>
+    <div class="row">
+       <ul>
+         Main Ingredients:
+         <li> <%= cocktail.strIngredient1 %></li>
+         <li> <%= cocktail.strIngredient2 %></li>
+         <li> <%= cocktail.strIngredient3 %></li>
+       </ul>
+    </div>
+</div>
+<%})%>
+
+
+
+<%- include('bootfooter') -%>

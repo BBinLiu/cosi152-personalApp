@@ -1,0 +1,41 @@
+<%- include('bootheader') -%>
+
+<%- include('menubar') -%>
+
+<div class="jumbotron">
+    <h1>This event is waiting for you to join!</h1>
+</div>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>Discription</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Started by</td>
+      <td> <%= name %></td>
+    </tr>
+    <tr>
+      <td>Destination</td>
+      <td> <%= destination %></td>
+    </tr>
+    <tr>
+      <td>Time</td>
+      <td> <%= time %> </td>
+    </tr>
+    <tr>
+      <td>Number of People</td>
+      <td> <%= number %> </td>
+    </tr>
+    <tr>
+      <td>Transporation</td>
+      <td> <%= transporation %> </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<%- include('bootfooter') -%>

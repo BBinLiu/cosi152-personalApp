@@ -52,7 +52,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/demo", 
+app.get("/demo",
         function (req, res){res.render("demo");});
 
 app.get("/about", (request, response) => {
@@ -63,11 +63,53 @@ app.get("/form", (request,response) => {
   response.render("form")
 })
 
-app.post("/showformdata", (request,response) => {
-  response.json(request.body)
+app.get("/dataDemo", (request,response) => {
+  response.locals.name="Tim Hickey"
+  response.locals.vals =[1,2,3,4,5]
+  response.locals.people =[
+    {'name':'Tim','age':65},
+    {'name':'Yas','age':29}]
+  response.render("dataDemo")
 })
 
-// Here is where we will explore using forms!
+app.post("/postForm", (req,res) => {
+  const name = req.body.name
+  const destination = req.body.destination
+  const time = req.body.time
+  const number = req.body.number
+  const transporation = req.body.transporation
+  res.locals.name = name
+  res.locals.destination = destination
+  res.locals.time = time
+  res.locals.number = number
+  res.locals.transporation = transporation
+  res.render('eventPage')
+})
+
+app.get('/cocktail', (req,res) => {
+  res.render('cocktail')
+})
+
+app.post("/getCocktail",
+  async (req,res,next) => {
+    try {
+      const cocktail = req.body.cocktail
+      const url = "http://www.thecocktaildb.com/api/json/v1/1/search.php?s="+cocktail+""
+      //const result = await axios.get(url)
+      //const url = "http://www.pm25.in/api/querys/pm2_5.json?city=zhuhai&token=5j1znBVAsnSf5xQyNQyq"
+      const result = await axios.get(url)
+      console.log('results')
+      console.dir(result.data)
+      console.log('results')
+      //console.dir(result.data.results)
+      res.locals.results = result.data
+      //res.json(result.data)
+      res.render('showCocktail')
+    } catch(error){
+      //console.error(error.response.data);
+      next(error)
+    }
+})
 
 
 
@@ -75,7 +117,7 @@ app.post("/showformdata", (request,response) => {
 // and send it back to the browser in raw JSON form, see
 // https://covidtracking.com/data/api
 // for all of the kinds of data you can get
-app.get("/c19", 
+app.get("/c19",
   async (req,res,next) => {
     try {
       const url = "https://covidtracking.com/api/v1/us/current.json"
